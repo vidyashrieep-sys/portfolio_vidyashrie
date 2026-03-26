@@ -9,6 +9,26 @@ DATABASE_URL = os.environ.get("DATABASE_URL")
 def get_db():
     return psycopg2.connect(DATABASE_URL)
 
+# Create table automatically
+def create_table():
+    conn = get_db()
+    cur = conn.cursor()
+
+    cur.execute("""
+    CREATE TABLE IF NOT EXISTS contacts (
+        id SERIAL PRIMARY KEY,
+        name TEXT,
+        email TEXT,
+        message TEXT
+    );
+    """)
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
+create_table()
+
 @app.route("/")
 def home():
     return render_template("index.html")
@@ -25,11 +45,10 @@ def contact():
 
     cur.execute(
         "INSERT INTO contacts (name,email,message) VALUES (%s,%s,%s)",
-        (name,email,message)
+        (name, email, message)
     )
 
     conn.commit()
-
     cur.close()
     conn.close()
 
