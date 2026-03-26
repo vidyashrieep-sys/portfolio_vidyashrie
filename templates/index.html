@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Vidyashriee Portfolio</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <header>
+
+        <img src="{{ url_for('static', filename='profile.jpg') }}" class="profile">
+
+        <h1>Vidyashriee</h1>
+
+        <p>BCA Student | Web Developer</p>
+
+    </header>
+
+    <section>
+
+        <h2>About Me</h2>
+
+        <p>Hello! I am Vidyashriee, a BCA student learning web development and programming.</p>
+
+    </section>
+
+    <section>
+
+        <h2>Skills</h2>
+
+        <ul>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>Python</li>
+        </ul>
+
+    </section>
+
+    <section>
+
+        <h2>Contact Me</h2>
+
+        <form action="/contact" method="POST">
+
+            <input type="text" name="name" placeholder="Your Name" required>
+
+            <input type="email" name="email" placeholder="Your Email" required>
+
+            <textarea name="message" placeholder="Your Message"></textarea>
+
+            <button type="submit">Send</button>
+
+        </form>
+
+    </section>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>
