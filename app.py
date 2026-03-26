@@ -9,8 +9,12 @@ DATABASE_URL = os.environ.get("DATABASE_URL")
 def get_db():
     return psycopg2.connect(DATABASE_URL)
 
-# Create table automatically
+# Create table safely
 def create_table():
+    if not DATABASE_URL:
+        print("DATABASE_URL not found yet")
+        return
+
     conn = get_db()
     cur = conn.cursor()
 
