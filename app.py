@@ -9,12 +9,8 @@ DATABASE_URL = os.environ.get("DATABASE_URL")
 def get_db():
     return psycopg2.connect(DATABASE_URL)
 
-# Create table safely
+# create table automatically when website loads
 def create_table():
-    if not DATABASE_URL:
-        print("DATABASE_URL not found yet")
-        return
-
     conn = get_db()
     cur = conn.cursor()
 
@@ -24,18 +20,19 @@ def create_table():
         name TEXT,
         email TEXT,
         message TEXT
-    );
+    )
     """)
 
     conn.commit()
     cur.close()
     conn.close()
 
-create_table()
 
 @app.route("/")
 def home():
+    create_table()   # create table when homepage loads
     return render_template("index.html")
+
 
 @app.route("/contact", methods=["POST"])
 def contact():
@@ -57,6 +54,3 @@ def contact():
     conn.close()
 
     return "Message sent successfully!"
-
-if __name__ == "__main__":
-    app.run(debug=True)
